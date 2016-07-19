@@ -1,0 +1,28 @@
+# depslib dependency file v1.0
+1468927386 source:/media/truecrypt3/src/DServer/hello.d
+	<std/stdio.d>
+	<server.d>
+
+1468928674 /media/truecrypt3/src/DServer/server.d
+
+1468928674 source:/media/truecrypt3/src/DServer/server.d
+	<std/stdio.d>
+	<std/socket.d>
+	<std/datetime.d>
+	<socket_thread.d>
+
+1468936879 source:/media/truecrypt3/src/DServer/socket_thread.d
+	<core/thread.d>
+	<core/sync/condition.d>
+	<core/sync/mutex.d>
+	<std/container.d>
+	<std/socket.d>
+	<client.d>
+
+1468938341 /media/truecrypt3/src/DServer/socket_thread.d
+
+1468936896 source:/media/truecrypt3/src/DServer/client.d
+	<std/socket.d>
+
+1468936896 /media/truecrypt3/src/DServer/client.d
+
