@@ -26,3 +26,31 @@
 
 1468936896 /media/truecrypt3/src/DServer/client.d
 
+1468927386 source:/media/truecrypt3/src/Multithreaded-TCP-server/hello.d
+	<std/stdio.d>
+	<server.d>
+
+1469020969 /media/truecrypt3/src/Multithreaded-TCP-server/server.d
+
+1469020969 source:/media/truecrypt3/src/Multithreaded-TCP-server/server.d
+	<std/stdio.d>
+	<std/socket.d>
+	<std/datetime.d>
+	<socket_thread.d>
+
+1469021161 /media/truecrypt3/src/Multithreaded-TCP-server/socket_thread.d
+
+1469011980 source:/media/truecrypt3/src/Multithreaded-TCP-server/client.d
+	<std/socket.d>
+	<std/stdio.d>
+
+1469020600 source:/media/truecrypt3/src/Multithreaded-TCP-server/socket_thread.d
+	<core/thread.d>
+	<core/sync/condition.d>
+	<core/sync/mutex.d>
+	<std/container.d>
+	<std/socket.d>
+	<client.d>
+
+1469011980 /media/truecrypt3/src/Multithreaded-TCP-server/client.d
+

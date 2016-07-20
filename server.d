@@ -22,7 +22,7 @@ class Server
         void StartListening(uint uPort)
         {
             s = new TcpSocket(AddressFamily.INET);
-            s.blocking(false);
+            //s.blocking(true);
 
             Address[] addresses = getAddress("127.0.0.1", 6000);
 
@@ -56,25 +56,17 @@ class Server
 
             while (true)
             {
-                int iResult = s.select(readSet, writeSet, errorSet, dur!"msecs"(250000));
-
-                if (iResult < 0)
-                    continue;
-
-                if (readSet.isSet(s))
+                //  check if we can accept
+                try
                 {
-                    //  can accept
-                    try
-                    {
-                        Socket clientSocket = s.accept();
-                        uint uThreadIDX = GetWorkingThread();
-                        workingThreads[uThreadIDX].AddSocket(clientSocket);
-                    }
-                    catch (Throwable o)
-                    {
-                        string strException = "An exception occured: " ~ o.msg;
-                        writeln(strException);
-                    }
+                    Socket clientSocket = s.accept();
+                    uint uThreadIDX = GetWorkingThread();
+                    workingThreads[uThreadIDX].AddSocket(clientSocket);
+                }
+                catch (Throwable o)
+                {
+                    string strException = "An exception occured: " ~ o.msg;
+                    writeln(strException);
                 }
             }
         }
@@ -89,7 +81,10 @@ class Server
             //!< Get working thread index for new incoming connection.
             //!< This function tries to scale the load for all threads.
 
-            uint uIDX;
+            uint uIDX = 0;
+
+            if (workingThreads[uIDX].isRunning == false)
+                workingThreads[uIDX].start();
 
             return uIDX;
         }
