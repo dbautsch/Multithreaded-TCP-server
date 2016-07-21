@@ -5,6 +5,8 @@ import core.sync.condition;
 import core.sync.mutex;
 import std.container;
 import std.socket;
+import std.stdio;
+import std.conv;
 
 import client;
 
@@ -33,12 +35,12 @@ class SocketThread : Thread
 {
         this()
         {
-            mutex = new Mutex();
+            mutex           = new Mutex();
 
-            variablesMutex = new Mutex();
-            finish = new Condition(mutex);
+            variablesMutex  = new Mutex();
+            finish          = new Condition(mutex);
 
-            socketsMutex = new Mutex();
+            socketsMutex    = new Mutex();
 
             super (&Run);
         }
@@ -78,33 +80,34 @@ class SocketThread : Thread
         {
             while (true)
             {
+                SocketInfoSet infoSet           = new SocketInfoSet;
+                ClientInfoSet clientsInfoSet    = new ClientInfoSet;
 
-                SocketInfoSet infoSet;
-                /*
-                ClientInfoSet clientsInfoSet;
-                */
                 socketsMutex.lock();
 
-                foreach (client; clientsList)
+                for (int i = 0; i < clientsList.length; ++i)
                 {
-                    //infoSet.readSet.add(client.GetSocket());
-                    //infoSet.writeSet.add(client.GetSocket());
-                    //infoSet.errorSet.add(client.GetSocket());
+                    Client client = clientsList[i];
+
+                    infoSet.readSet.add(client.GetSocket());
+                    infoSet.writeSet.add(client.GetSocket());
+                    infoSet.errorSet.add(client.GetSocket());
                 }
 
                 socketsMutex.unlock();
 
-                /*
-                int iResult = Socket.select(infoSet.readSet, infoSet.writeSet, infoSet.errorSet, dur!"msecs"(25));
+                int iResult = Socket.select(infoSet.readSet, infoSet.writeSet, infoSet.errorSet, dur!"msecs"(250));
 
                 if (iResult < 0)
                     continue;
+
+                writeln("loop");
 
                 SocketSetToClientSet(infoSet, clientsInfoSet);
                 DoRead(clientsInfoSet);
                 DoWrite(clientsInfoSet);
                 HandleErrors(clientsInfoSet);
-                */
+
             }
         }
 

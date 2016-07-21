@@ -3,6 +3,8 @@ module server;
 import std.stdio;
 import std.socket;
 import std.datetime;
+import std.conv;
+import std.container;
 
 import socket_thread;
 
@@ -13,18 +15,17 @@ class Server
         {
             //  create working threads, each thread will own couple client sockets
             //  for reading/writing data.
-            for (auto i = 0; i < workingThreads.length; ++i)
+            for (auto i = 0; i < uThreadsCount; ++i)
             {
-                workingThreads[i] = new SocketThread;
+                workingThreads.insertBack(new SocketThread);
             }
         }
 
-        void StartListening(uint uPort)
+        void StartListening(ushort usPort)
         {
             s = new TcpSocket(AddressFamily.INET);
-            //s.blocking(true);
 
-            Address[] addresses = getAddress("127.0.0.1", 6000);
+            Address[] addresses = getAddress("127.0.0.1", usPort);
 
             if (addresses.length == 0)
             {
@@ -40,10 +41,12 @@ class Server
             }
             catch (Throwable o)
             {
+                writeln(o.msg);
                 Exception e;
                 e.msg = "Failed to bind or listen.";
                 throw e;
             }
+
 
             SocketSet readSet = new SocketSet();
             readSet.add(s);
@@ -54,12 +57,18 @@ class Server
             SocketSet errorSet = new SocketSet();
             errorSet.add(s);
 
+            writeln("Server has been started. Waiting for clients..");
+            string strInfo = "Server listening at " ~ addresses[0].toAddrString() ~ ":" ~ text(usPort);
+            writeln(strInfo);
+            writeln("");
+
             while (true)
             {
                 //  check if we can accept
                 try
                 {
                     Socket clientSocket = s.accept();
+                    writeln("A client has connected");
                     uint uThreadIDX = GetWorkingThread();
                     workingThreads[uThreadIDX].AddSocket(clientSocket);
                 }
@@ -74,7 +83,9 @@ class Server
     private:
         TcpSocket s;
 
-        SocketThread[2] workingThreads;
+        const uint uThreadsCount = 1;
+
+        Array!SocketThread workingThreads;
 
         uint GetWorkingThread()
         {

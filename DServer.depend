@@ -54,3 +54,35 @@
 
 1469011980 /media/truecrypt3/src/Multithreaded-TCP-server/client.d
 
+1469131116 source:/media/intruz/SOURCE [80 GB]/Multithreaded-TCP-server/client.d
+	<std/socket.d>
+	<std/stdio.d>
+
+1469036349 source:/media/intruz/SOURCE [80 GB]/Multithreaded-TCP-server/hello.d
+	<std/stdio.d>
+	<server.d>
+
+1469131019 /media/intruz/SOURCE [80 GB]/Multithreaded-TCP-server/server.d
+
+1469131019 source:/media/intruz/SOURCE [80 GB]/Multithreaded-TCP-server/server.d
+	<std/stdio.d>
+	<std/socket.d>
+	<std/datetime.d>
+	<std/conv.d>
+	<std/container.d>
+	<socket_thread.d>
+
+1469131116 /media/intruz/SOURCE [80 GB]/Multithreaded-TCP-server/socket_thread.d
+
+1469131116 source:/media/intruz/SOURCE [80 GB]/Multithreaded-TCP-server/socket_thread.d
+	<core/thread.d>
+	<core/sync/condition.d>
+	<core/sync/mutex.d>
+	<std/container.d>
+	<std/socket.d>
+	<std/stdio.d>
+	<std/conv.d>
+	<client.d>
+
+1469131116 /media/intruz/SOURCE [80 GB]/Multithreaded-TCP-server/client.d
+
