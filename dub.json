@@ -1,0 +1,6 @@
+{
+	"name" : "multithreaded-tcp-server",
+	"description" : "Hello World - A minimal DUB bundle.",
+	"dependencies" : {
+	}
+}
